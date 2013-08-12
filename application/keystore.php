@@ -1,5 +1,6 @@
 <?php
 if (!defined("THINGS2DO")){die("Unauthorized access");}
+
 class KeyStore {
     private $keys;
     private $ids;
@@ -32,6 +33,7 @@ class KeyStore {
         return null;
     }
 }
+
 $key=new KeyStore();
 function getkey($name) {
     global $key;

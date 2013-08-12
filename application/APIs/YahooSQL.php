@@ -68,6 +68,5 @@ class YahooSQL {
         $this->get_json();
         return $this->get_results();
     }
-    
 }
 ?>

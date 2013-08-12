@@ -5,7 +5,7 @@ class LocationManager {
     public $lat;
     public $lon;
     function __construct() {
-        
+        // Nothing to initialize yet
     }
     public function try_all_methods() {
         $this->get_geolocation();
@@ -30,5 +30,4 @@ class LocationManager {
         $this->lon=$tags['longitude'];
     }
 }
-//    http://maps.googleapis.com/maps/api/geocode/json?latlng=50.3756457,-4.1410831&sensor=false
 ?>

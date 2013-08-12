@@ -96,7 +96,7 @@ class things2do {
         }
         foreach ($keywords as $pack) {
             $output['keywords'][$pack['text']]=(float)$pack['relevance'];
-}
+        }
         return $output;
     }
 }
