@@ -37,7 +37,7 @@ function sendSearch(boxid) {
                     var total = data.length
                     if (total > 24) total = 24 // limit to 24. TODO: Never send more than 24 results
                     for (var i=0; i<total; i++) {
-                        // TODO: Add cards
+                        cardAdd(data[i])
                     }
                 }
                 else {

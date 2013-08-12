@@ -36,9 +36,6 @@ $(document).ready(function(){
 
 })
 
-function cardRemoveAll() {
-    $("div.card, div.smallcard").remove()
-}
 
 function showError(show) {
     var errorMessage=$("#errormessage")
