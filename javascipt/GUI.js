@@ -35,3 +35,37 @@ $(document).ready(function(){
     })
 
 })
+
+function cardRemoveAll() {
+    $("div.card, div.smallcard").remove()
+}
+
+function showError(show) {
+	var errorMessage=$("#errormessage")
+	if (show) {
+		errorMessage.show()
+	}
+    else {
+		errorMessage.hide()
+	}
+}
+
+function showResults(show) {
+	var resultsBox=$("#resultscontainer")
+	if (!show) {
+		resultsBox.hide()
+	}
+    else {
+		resultsBox.show()
+	}
+}
+
+function showLoading(show) {
+	var loadGif=$("#loading")
+	if (show) {
+		loadGif.show()
+	}
+    else {
+		loadGif.hide()
+	}
+}
