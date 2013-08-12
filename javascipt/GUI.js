@@ -4,7 +4,11 @@ $(document).ready(function(){
 
     inputs=$('input[type=text]')
     inputs.bind('keyup', function(e){
-        inputs.val(e.target.value)
+        inputs.each(function(i, input) {
+            if (input!=e.target) {
+                input.value=e.target.value
+            }
+        })
     })
 
     $(document.s).bind('submit', function(event){
