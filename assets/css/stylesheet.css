@@ -1,87 +1,87 @@
 /* CSS Document */
 .titanic {
-	float: none;
+    float: none;
 }
 @-ms-viewport {
 width: device-width;
 }
 ::selection {
-	background-color: #385891;
-	color: #fff;
+    background-color: #385891;
+    color: #fff;
 }
 html {
-	width: 100%;
-	margin: 0;
-	height: 100%;
+    width: 100%;
+    margin: 0;
+    height: 100%;
 }
 body {
-	width: 100%;
-	margin: 0;
-	height: 100%;
-	font-family: 'OpenSansRegular', sans-serif;
-	background-color: #e2e2e2;
+    width: 100%;
+    margin: 0;
+    height: 100%;
+    font-family: 'OpenSansRegular', sans-serif;
+    background-color: #e2e2e2;
 }
 #home {
-	width: 100%;
-	height: 100%;
-	background-image: url(/assets/images/background.jpg);
-	background-size: cover;
-	background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    background-image: url(/assets/images/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 #logo {
-	margin: 0 auto;
-	float: left;
-	background-image: url(/assets/images/logo.png);
-	height: 46px;
-	width: 199px;
-	background-repeat: no-repeat;
-	background-size: 78%;
-	position: relative;
-	background-position: 50% 50%;
-	padding: 29px;
+    margin: 0 auto;
+    float: left;
+    background-image: url(/assets/images/logo.png);
+    height: 46px;
+    width: 199px;
+    background-repeat: no-repeat;
+    background-size: 78%;
+    position: relative;
+    background-position: 50% 50%;
+    padding: 29px;
 }
 #logoresults {
-	float: left;
-	background-image: url(/assets/images/logo.png);
-	height: 46px;
-	width: 199px;
-	background-repeat: no-repeat;
-	background-size: 88%;
-	position: relative;
-	background-position: 50% 50%;
-	padding: 13px;
+    float: left;
+    background-image: url(/assets/images/logo.png);
+    height: 46px;
+    width: 199px;
+    background-repeat: no-repeat;
+    background-size: 88%;
+    position: relative;
+    background-position: 50% 50%;
+    padding: 13px;
 }
 #searchcontainer {
-	position: absolute;
-	height: 100%;
-	display: table;
-	width: 100%;
-	top: 0;
-	text-align: center;
+    position: absolute;
+    height: 100%;
+    display: table;
+    width: 100%;
+    top: 0;
+    text-align: center;
 }
 #search {
-	width: 540px;
-	margin: 0 auto;
-	display: table-cell;
-	vertical-align: middle;
+    width: 540px;
+    margin: 0 auto;
+    display: table-cell;
+    vertical-align: middle;
 }
 #searchbox {
-	font-size: 40px;
-	font-family: 'OpenSansLight', sans-serif;
-	color: #fff;
+    font-size: 40px;
+    font-family: 'OpenSansLight', sans-serif;
+    color: #fff;
 }
 .homesearch {
-	font-family: 'OpenSansRegular'-webkit-body;
-	border: none;
-	border-bottom: 4px solid #fff;
-	background: transparent;
-	width: 50%;
-	max-width: 450px;
-	height: 55px;
-	line-height: 35px;
-	font-size: 40px;
-	color: #fff;
-	padding-bottom: 5px;
+    font-family: 'OpenSansRegular'-webkit-body;
+    border: none;
+    border-bottom: 4px solid #fff;
+    background: transparent;
+    width: 50%;
+    max-width: 450px;
+    height: 55px;
+    line-height: 35px;
+    font-size: 40px;
+    color: #fff;
+    padding-bottom: 5px;
 }
 ::-webkit-input-placeholder {
 color: #fff;
@@ -96,141 +96,141 @@ color: #fff;
 color: #fff;
 }
 .homesearch:focus, .submithome:focus, .searchresult, .submitresult {
-	outline: none;
+    outline: none;
 }
 #localhome {
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
-	color: #fff;
-	font-size: 16px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: #fff;
+    font-size: 16px;
 }
 .submithome {
-	background-color: transparent;
-	border: none;
-	background-image: url(/assets/images/arrow.png);
-	width: 40px;
-	height: 60px;
-	position: relative;
-	display: inline-block;
-	bottom: -14px;
-	left: -10px;
-	border-bottom: 4px solid #fff;
-	cursor: pointer;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    background-image: url(/assets/images/arrow.png);
+    width: 40px;
+    height: 60px;
+    position: relative;
+    display: inline-block;
+    bottom: -14px;
+    left: -10px;
+    border-bottom: 4px solid #fff;
+    cursor: pointer;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
 }
 #help {
-	z-index: 99;
-	text-align: right;
-	position: relative;
-	padding: 10px
+    z-index: 99;
+    text-align: right;
+    position: relative;
+    padding: 10px
 }
 a {
-	color: #fff;
+    color: #fff;
 }
 #head {
-	overflow: auto;
-	background-color: #1d7eb2;
+    overflow: auto;
+    background-color: #1d7eb2;
 }
 .searchresult {
-	-webkit-border-radius: 0;
-	display: inline-block;
-	vertical-align: middle;
-	font-family: 'OpenSansRegular'-webkit-body;
-	border: none;
-	border-bottom: 3px solid #fff;
-	background: transparent;
-	width: 50%;
-	max-width: 450px;
-	height: 33px;
-	font-size: 25px;
-	color: #fff;
-	padding-bottom: 5px;
+    -webkit-border-radius: 0;
+    display: inline-block;
+    vertical-align: middle;
+    font-family: 'OpenSansRegular'-webkit-body;
+    border: none;
+    border-bottom: 3px solid #fff;
+    background: transparent;
+    width: 50%;
+    max-width: 450px;
+    height: 33px;
+    font-size: 25px;
+    color: #fff;
+    padding-bottom: 5px;
 }
 .resultform {
-	width: 701px;
-	font-family: 'OpenSansLight', sans-serif;
-	font-size: 0;
-	color: #fff;
-	margin: 0 auto;
-	padding: 15px;
-	text-align: center;
+    width: 701px;
+    font-family: 'OpenSansLight', sans-serif;
+    font-size: 0;
+    color: #fff;
+    margin: 0 auto;
+    padding: 15px;
+    text-align: center;
 }
 .submitresult {
-	background-color: transparent;
-	-webkit-border-radius: 0;
-	background-image: url(/assets/images/arrow.png);
-	width: 35px;
-	height: 42px;
-	position: relative;
-	left: 0px;
-	padding-top: 32px;
-	border: 0;
-	border-bottom: 3px solid #fff !important;
-	cursor: pointer;
-	border-radius: none;
-	background-size: 90%;
-	background-repeat: no-repeat;
-	background-position: 50% 50%;
-	display: inline-block;
-	vertical-align: middle;
+    background-color: transparent;
+    -webkit-border-radius: 0;
+    background-image: url(/assets/images/arrow.png);
+    width: 35px;
+    height: 42px;
+    position: relative;
+    left: 0px;
+    padding-top: 32px;
+    border: 0;
+    border-bottom: 3px solid #fff !important;
+    cursor: pointer;
+    border-radius: none;
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    display: inline-block;
+    vertical-align: middle;
 }
 .searchresult:focus, .homeresult:focus {
-	outline: none;
+    outline: none;
 }
 #resultscontainer {
-	margin: 0 auto;
-	min-height: 500px;
-	text-align: center;
+    margin: 0 auto;
+    min-height: 500px;
+    text-align: center;
 }
 #resultscontainer ul {
-	list-style: none;
-	display: inline-block;
+    list-style: none;
+    display: inline-block;
 }
 .card {
-	width: 350px;
-	height: 400px;
-	background-color: #fff;
-	border: 1px solid #c0c0c0;
-	float: left;
-	margin: 20px;
-	border-radius: 5px;
-	text-align: left;
-	-webkit-transition: 1s ease;
-	-ms-transition: 1s ease;
-	-moz-transition: 1s ease;
-	-o-transition: 1s ease;
-	transition: 1s ease;
+    width: 350px;
+    height: 400px;
+    background-color: #fff;
+    border: 1px solid #c0c0c0;
+    float: left;
+    margin: 20px;
+    border-radius: 5px;
+    text-align: left;
+    -webkit-transition: 1s ease;
+    -ms-transition: 1s ease;
+    -moz-transition: 1s ease;
+    -o-transition: 1s ease;
+    transition: 1s ease;
 }
 .card:hover {
-	box-shadow: 0px 0px 10px rgba(1, 1, 1, 0.5);
+    box-shadow: 0px 0px 10px rgba(1, 1, 1, 0.5);
 }
 .resultmessage {
-	font-family: 'OpenSansLight', sans-serif;
-	color: #000;
-	font-size: 26px;
-	margin: 20px 0px 0px 0px;
-	text-align: left;
+    font-family: 'OpenSansLight', sans-serif;
+    color: #000;
+    font-size: 26px;
+    margin: 20px 0px 0px 0px;
+    text-align: left;
 }
 #iwantresults {
-	display: inline-block;
-	vertical-align: middle;
-	font-size: 28px;
-	margin-right: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 28px;
+    margin-right: 12px;
 }
 .content {
 }
 .cardtop {
-	width: 345px;
-	border-bottom: 1px solid #c0c0c0;
-	height: 189px;
-	padding: 5px 0px 5px 5px;
+    width: 345px;
+    border-bottom: 1px solid #c0c0c0;
+    height: 189px;
+    padding: 5px 0px 5px 5px;
 }
 .cardbottom {
-	width: 330px;
-	height: 180px;
-	padding: 10px 10px 10px 8px;
+    width: 330px;
+    height: 180px;
+    padding: 10px 10px 10px 8px;
 }
 .cardtext a {
 color: #000;
@@ -252,97 +252,97 @@ left: 207px;
 border-bottom-right-radius: 5px;
 }
 h2 {
-	font-family: 'OpenSansLight', sans-serif;
-	font-size: 20px;
-	margin: 0px;
+    font-family: 'OpenSansLight', sans-serif;
+    font-size: 20px;
+    margin: 0px;
 }
 p {
-	font-family: 'OpenSansRegular', sans-serif;
-	font-size: 12px;
-	margin: 5px 0 0 0;
+    font-family: 'OpenSansRegular', sans-serif;
+    font-size: 12px;
+    margin: 5px 0 0 0;
 }
 .cardtop .cardtext {
-	width: 201px;
-	height: 190px;
-	overflow: hidden;
-	float: left;
-	margin-left: 3px;
+    width: 201px;
+    height: 190px;
+    overflow: hidden;
+    float: left;
+    margin-left: 3px;
 }
 .cardbottom .cardtext {
-	width: 193px;
-	height: 190px;
-	overflow: hidden;
-	margin: 0;
-	position: absolute;
-	display: inline-block;
+    width: 193px;
+    height: 190px;
+    overflow: hidden;
+    margin: 0;
+    position: absolute;
+    display: inline-block;
 }
 .shadow {
-	width: 225px;
-	background: transparent;
-	height: 30px;
-	position: relative;
-	top: 6px;
-	left: -10px;
-	box-shadow: 0px -16px 28px #fff;
-	z-index: 99;
+    width: 225px;
+    background: transparent;
+    height: 30px;
+    position: relative;
+    top: 6px;
+    left: -10px;
+    box-shadow: 0px -16px 28px #fff;
+    z-index: 99;
 }
 .ptext {
-	height: 156px;
-	overflow: hidden;
+    height: 156px;
+    overflow: hidden;
 }
 .ptext p {
-	-webkit-transition: 1s;
-	position: relative;
-	top: 0;
+    -webkit-transition: 1s;
+    position: relative;
+    top: 0;
 }
 .ptext p:hover {
-	top: -50%;
-	-webkit-transition: 7s;
+    top: -50%;
+    -webkit-transition: 7s;
 }
 .smallcard {
-	width: 350px;
-	height: 200px;
-	background-color: #fff;
-	border: 1px solid #c0c0c0;
-	float: left;
-	margin: 20px;
-	border-radius: 5px;
-	text-align: left;
-	-webkit-transition: 1s ease;
-	-ms-transition: 1s ease;
-	-moz-transition: 1s ease;
-	-o-transition: 1s ease;
-	transition: 1s ease;
+    width: 350px;
+    height: 200px;
+    background-color: #fff;
+    border: 1px solid #c0c0c0;
+    float: left;
+    margin: 20px;
+    border-radius: 5px;
+    text-align: left;
+    -webkit-transition: 1s ease;
+    -ms-transition: 1s ease;
+    -moz-transition: 1s ease;
+    -o-transition: 1s ease;
+    transition: 1s ease;
 }
 .smallcard:hover {
 box-shadow: 0px 0px 10px rgba(1, 1, 1, 0.5);
 -webkit-transform: scale(1.02);
 }
 #tipbox {
-	width: 175px;
-	margin: 0 auto;
-	height: 50px;
-	background: #248079;
-	position: relative;
-	color: #fff;
-	font-family: 'OpenSansLight', sans-serif;
-	font-size: 21px;
-	-webkit-animation: tipbox 30s infinite linear;
-	-ms-animation: tipbox 30s infinite linear;
-	overflow: hidden;
+    width: 175px;
+    margin: 0 auto;
+    height: 50px;
+    background: #248079;
+    position: relative;
+    color: #fff;
+    font-family: 'OpenSansLight', sans-serif;
+    font-size: 21px;
+    -webkit-animation: tipbox 30s infinite linear;
+    -ms-animation: tipbox 30s infinite linear;
+    overflow: hidden;
 }
 #tiptri {
-	width: 50px;
-	height: 50px;
-	background: #248079;
-	-ms-transform: rotate(45deg);
-	-moz-transform: rotate(45deg);
-	-o-transform: rotate(45deg);
-	transform: rotate(45deg);
-	-webkit-transform: rotate(45deg);
-	position: relative;
-	margin: 0 auto;
-	top: 25px;
+    width: 50px;
+    height: 50px;
+    background: #248079;
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    position: relative;
+    margin: 0 auto;
+    top: 25px;
 }
 @-ms-keyframes tipbox {
  0% {
@@ -551,57 +551,57 @@ opacity: 0;
 }
 }
 #try {
-	position: absolute;
-	left: 10px;
-	top: 10px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
 }
 #filmtip {
-	position: absolute;
-	opacity: 0;
-	left: 50px;
-	top: 10px;
-	-webkit-animation: filmtip 30s infinite linear;
-	-ms-animation: filmtip 30s infinite linear;
+    position: absolute;
+    opacity: 0;
+    left: 50px;
+    top: 10px;
+    -webkit-animation: filmtip 30s infinite linear;
+    -ms-animation: filmtip 30s infinite linear;
 }
 #placestip {
-	position: absolute;
-	opacity: 0;
-	left: 50px;
-	top: 10px;
-	-webkit-animation: placestip 30s infinite linear;
-	-ms-animation: placestip 30s infinite linear;
+    position: absolute;
+    opacity: 0;
+    left: 50px;
+    top: 10px;
+    -webkit-animation: placestip 30s infinite linear;
+    -ms-animation: placestip 30s infinite linear;
 }
 #gametip {
-	position: absolute;
-	opacity: 0;
-	left: 50px;
-	top: 10px;
-	-webkit-animation: gametip 30s infinite linear;
-	-ms-animation: gametip 30s infinite linear;
+    position: absolute;
+    opacity: 0;
+    left: 50px;
+    top: 10px;
+    -webkit-animation: gametip 30s infinite linear;
+    -ms-animation: gametip 30s infinite linear;
 }
 #foodtip {
-	opacity: 0;
-	position: absolute;
-	left: 50px;
-	top: 10px;
-	-webkit-animation: foodtip 30s infinite linear;
-	-ms-animation: foodtip 30s infinite linear;
+    opacity: 0;
+    position: absolute;
+    left: 50px;
+    top: 10px;
+    -webkit-animation: foodtip 30s infinite linear;
+    -ms-animation: foodtip 30s infinite linear;
 }
 #resultsdiv {
-	min-height: 100%;
+    min-height: 100%;
 }
 #tipbox span {
-	white-space: nowrap;
+    white-space: nowrap;
 }
 #loading {
-	display: block;
-	margin: 0 auto;
-	width: 400px;
+    display: block;
+    margin: 0 auto;
+    width: 400px;
 }
 #loader {
-	background-image: url(/assets/images/loading.gif);
-	height: 32px;
-	width: 32px;
-	background-repeat: no-repeat;
-	margin: 50px auto;
+    background-image: url(/assets/images/loading.gif);
+    height: 32px;
+    width: 32px;
+    background-repeat: no-repeat;
+    margin: 50px auto;
 }

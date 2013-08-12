@@ -41,31 +41,31 @@ function cardRemoveAll() {
 }
 
 function showError(show) {
-	var errorMessage=$("#errormessage")
-	if (show) {
-		errorMessage.show()
-	}
+    var errorMessage=$("#errormessage")
+    if (show) {
+        errorMessage.show()
+    }
     else {
-		errorMessage.hide()
-	}
+        errorMessage.hide()
+    }
 }
 
 function showResults(show) {
-	var resultsBox=$("#resultscontainer")
-	if (!show) {
-		resultsBox.hide()
-	}
+    var resultsBox=$("#resultscontainer")
+    if (!show) {
+        resultsBox.hide()
+    }
     else {
-		resultsBox.show()
-	}
+        resultsBox.show()
+    }
 }
 
 function showLoading(show) {
-	var loadGif=$("#loading")
-	if (show) {
-		loadGif.show()
-	}
+    var loadGif=$("#loading")
+    if (show) {
+        loadGif.show()
+    }
     else {
-		loadGif.hide()
-	}
+        loadGif.hide()
+    }
 }
