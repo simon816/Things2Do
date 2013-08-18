@@ -1,4 +1,6 @@
 <?php
+if (!defined("THINGS2DO")){die("Unauthorized access");}
+
 include "$root/application/APIs/YahooSQL.php";
 include "$root/application/APIs/geobytes.php";
 include "$root/application/APIs/alcemyapi.php";
