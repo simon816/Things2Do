@@ -22,6 +22,7 @@ class things2do {
     }
     private function loadConfig() {
         include "$this->root/config/main.php";
+        include "$this->root/config/types.php";
     }
     public function suggestToUser() {
     }
