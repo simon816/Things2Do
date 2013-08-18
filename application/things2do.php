@@ -25,6 +25,21 @@ class things2do {
         include "$this->root/config/types.php";
     }
     public function suggestToUser() {
+        //$this->dostuff(); //Commented because it is not functional yet
+        $output=Array();
+        // Example data <
+        array_push($output, Array(
+            "url" => "http://things2do.ws",
+            "title" => "Test Things 2 Do",
+            "score" => 1,
+            "type" => TYPE_CINEMA,
+            "postcode" => "POSTCODE",
+            "image" => "/assets/images/moviepostersample.png",
+            "data" => Array()
+        ));
+        // />
+        echo json_encode($output);
+        exit;
     }
     protected function dostuff() {
         // use yahoo content analysis
@@ -34,7 +49,7 @@ class things2do {
         // use alchemyapi
         $this->category=$this->alc->get_category($this->query);
         $this->keywords=$this->alc->get_keywords($this->query);
-        var_dump($this->categorytoid($this->category, $this->analysis, $this->keywords));
+        $this->ids=$this->categorytoid($this->category, $this->analysis, $this->keywords);
     }
     private function categorytoid($category, $analysis, $keywords) {
         //var_dump(array($category, $analysis, $keywords));
