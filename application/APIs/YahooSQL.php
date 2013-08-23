@@ -4,17 +4,31 @@ if (!defined("THINGS2DO")){die("Unauthorized access");}
 class YahooSQL {
     private $api_version;
     private $url;
-    public function __construct() {
+    private $ch;
+    public function __construct($ch=null) {
         $this->api_version=1;
         $this->url="http://query.yahooapis.com/v$this->api_version/public/yql";
+        $this->ch=$ch;
     }
     private function build_select_query($from, $key, $value) {
         $this->query=urlencode("select * from $from where $key=\"$value\"");
         return $this->query;
     }
     public function get_json($query=null) {
+        if ($this->ch==null) {
+            $upstreamCurl=false;
+            $this->ch=curl_init();
+            curl_setopt_array($this->ch, Array(CURLOPT_RETURNTRANSFER=>true, CURLOPT_CONNECTTIMEOUT=>2));
+        }
+        else {
+            $upstreamCurl=true;
+        }
         if (!$query) {$query=$this->query;}
-        $jsonstring=file_get_contents("$this->url?q=$query&format=json");
+        curl_setopt($this->ch, CURLOPT_URL, "$this->url?q=$query&format=json");
+        $jsonstring=curl_exec($this->ch);
+        if ($upstreamCurl==false) {
+            curl_close($this->ch);
+        }
         $this->json=(array)json_decode($jsonstring);
         return $this->json;
     }

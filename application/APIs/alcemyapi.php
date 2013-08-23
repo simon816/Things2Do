@@ -4,26 +4,20 @@ if (!defined("THINGS2DO")){die("Unauthorized access");}
 class AlcAPI {
     private $url;
     private $api_key;
-    public function __construct() {
+    private $ch;
+
+    public function __construct($ch=null) {
         $this->url="http://access.alchemyapi.com";
         $this->api_key=getkey('alchemy');
-    }
-    public function get_category($text) {
-        // find the category they are looking for
-        $url=$this->make_query("/calls/text/TextGetCategory", $text);
-        return $this->get_json($url, Array("category"=>"score"));
-    }
-    public function get_keywords($text) {
-        // words that influenced decisions
-        $url=$this->make_query("/calls/text/TextGetRankedKeywords", $text);
-        return $this->get_json($url, Array(0=>"keywords"));
+        $this->multi_request=Array();
+        $this->ch=$ch;
     }
     private function make_query($url, $text, $data=Array()) {
         $q=str_replace('&amp;', '&', http_build_query(array_merge($data, Array("apikey"=>$this->api_key, "text"=>$text, "outputMode"=>"json"))));
         return $this->url.$url."?".$q;
     }
-    private function get_json($url, $format=null) {
-        $json=json_decode(file_get_contents($url), true);
+    private function get_json($body, $format=null) {
+        $json=json_decode($body, true);
         $output=Array();
         if ($format) {
             foreach ($format as $key=>$value) {
@@ -39,6 +33,40 @@ class AlcAPI {
             $output=$json;
         }
         return $output;
+    }
+    public function add_request($type, $text) {
+        $url = null;
+        if ($type == "keywords") {
+            $url=$this->make_query("/calls/text/TextGetRankedKeywords", $text);
+            $fmt=Array(0=>"keywords");
+        }
+        elseif ($type == "category") {
+            $url=$this->make_query("/calls/text/TextGetCategory", $text);
+            $fmt=Array("category"=>"score");
+        }
+        if ($url == null) {
+            throw new Exception("Failed to add request to alchemyapi");
+        }
+        array_push($this->multi_request, Array("url"=>$url, "fmt"=>$fmt, "type"=>$type));
+    }
+    public function run_request() {
+        if ($this->ch==null) {
+            $upstreamCurl=false;
+            $this->ch=curl_init();
+            curl_setopt_array($this->ch, Array(CURLOPT_RETURNTRANSFER=>true, CURLOPT_CONNECTTIMEOUT=>2));
+        }
+        else {
+            $upstreamCurl=true;
+        }
+        $out_arr=Array();
+        foreach ($this->multi_request as $inf) {
+            curl_setopt($this->ch, CURLOPT_URL, $inf["url"]);
+            $out_arr[$inf["type"]]=$this->get_json(curl_exec($this->ch), $inf["fmt"]);
+        }
+        if ($upstreamCurl==false) {
+            curl_close($this->ch);
+        }
+        return $out_arr;
     }
 }
 ?>
