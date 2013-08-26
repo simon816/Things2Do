@@ -3,17 +3,18 @@ if (!defined("THINGS2DO")){die("Unauthorized access");}
 
 // TODO: Allow for stackable query's
 
-$db_conf=Array();
-include_once "$root/config/database.php";
 
 class MYSQL_DB {
     private $db;
     private $query;
     private $executable;
-    private $where;
+    private $chainarr;
     public $unclaimed;
-    function __construct($host, $username, $password, $dbname) {
-        $this->db=mysqli_connect($host,$username,$password,$dbname);
+    function __construct() {
+        $db_conf=Array();
+        global $root;
+        include_once "$root/config/database.php";
+        $this->db=mysqli_connect($db_conf['host'],$db_conf['user'],$db_conf['pass'],$db_conf['database']);
         $this->flush_query();
     }
     public function select($rows, $table) {
@@ -56,13 +57,11 @@ class MYSQL_DB {
     }
     public function where($key, $op, $val) {
         $val="'".mysqli_real_escape_string($this->db, $val)."'";
-        if ($this->where) {
-            $this->add_query(Array("AND", $key, $op, $val));
-        }
-        else {
-            $this->add_query(Array("WHERE", $key, $op, $val));
-            $this->where=true;
-        }
+        $this->add_to_chain("where", Array($key, $op, $val));
+        return $this;
+    }
+    public function order_by($colname, $order) {
+        $this->add_to_chain("order by", Array($colname, $order));
         return $this;
     }
     private function flush_query() {
@@ -72,14 +71,33 @@ class MYSQL_DB {
         $this->executable=false;
         $this->where=false;
         $this->query="";
+        $this->chainarr= Array(
+            "WHERE"=>Array("AND", Array()),
+            "ORDER BY"=>Array(", ", Array())
+        );
     }
     private function add_query($arrdata) {
         $this->query.=implode(" ", $arrdata)." ";
+    }
+    private function add_to_chain($chname, $data) {
+        $cap=strtoupper($chname);
+        if(!isset($this->chainarr[$cap])) {
+            throw new Exception("Unknown chain name '$chname'");
+        }
+        $this->chainarr[$cap][1][]=$data;
     }
     public function _() {
         $o=Array();
         if (!$this->executable) {
             return false;
+        }
+        foreach($this->chainarr as $chname=>$chinfo) {
+            $len=count($chinfo[1]);
+            if ($len>0) {
+                for($i=0;$i<$len;$i++) {
+                    $this->add_query(array_merge(Array($i==0?$chname:$chinfo[0]), $chinfo[1][$i]));
+                }
+            }
         }
         $result=mysqli_query($this->db, $this->query);
         if ($result != false) {
