@@ -34,7 +34,9 @@ class things2do {
         ));
     }
     public function suggestToUser() {
-        $this->dostuff();
+        //$this->dostuff();
+        $output=$this->useOldAlgorithm();
+        /*
         $output=Array();
         // Example data <
         array_push($output, Array(
@@ -47,6 +49,7 @@ class things2do {
             "data" => Array()
         ));
         // />
+        */
         echo json_encode($output);
         exit;
     }
@@ -127,6 +130,14 @@ class things2do {
         }
         return $output;
     }
+
+    private function useOldAlgorithm() {
+        // until a full rewrite is complete this will be the method
+        include "$this->root/application/oldsearch.php";
+        $this->location=Array(52.483056,-1.893611);
+        return getResults($this, $this->root);
+    }
+
     function __destruct() {
         curl_close($this->curl);
     }
