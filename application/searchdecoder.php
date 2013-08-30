@@ -1,4 +1,5 @@
 <?php
+if (!defined("THINGS2DO")){die("Unauthorized access");}
 
 class Search {
 	public $categoryanalysis;
