@@ -17,10 +17,15 @@ class Position {
         $this->lon = $lon;
     }
 }
-class FakeWeather {
-    public $precipitation = 25;
-    public $temperature = 15;
-    public $type = "cloud";
+class Weather {
+    public $precipitation;
+    public $temperature;
+    public $type;
+    function __construct($weather) {
+        $this->precipitation=$weather['precipitation'];
+        $this->temperature=$weather['temperature'];
+        $this->type=$weather['type'];
+    }
 }
 
 function getResults($class, $root) {
@@ -32,7 +37,7 @@ function getResults($class, $root) {
 	$conditions = new Condition();
 	$conditions->_time = (float)date("G", time()) + ((float)date("i", time()))/60;
 	$conditions->position = new Position($class->location[0],$class->location[1]);
-    $conditions->weather=new FakeWeather(); //weather not yet implemented
+    $conditions->weather=new Weather($class->weather);
 	//get string category list -  $categories from searchdecoder.php, parameters (searchstring)
 	$searchstringresults = new Search($class->query);
 	$categories = $searchstringresults->categoryanalysis;

@@ -4,6 +4,7 @@ if (!defined("THINGS2DO")){die("Unauthorized access");}
 include "$root/application/APIs/YahooSQL.php";
 include "$root/application/APIs/geolocation.php";
 include "$root/application/APIs/alcemyapi.php";
+include "$root/application/weather.php";
 
 class things2do {
     // The master class
@@ -12,6 +13,7 @@ class things2do {
     public $location;
     public $category;
     private $root;
+    private $curl;
     public function __construct($root) {
         $this->root=$root;
         $this->loadConfig();
@@ -135,6 +137,7 @@ class things2do {
         // until a full rewrite is complete this will be the method
         include "$this->root/application/oldsearch.php";
         $this->location=Array(52.483056,-1.893611);
+        $this->weather=getWeather($this->curl, $this->root, $this->location);
         return getResults($this, $this->root);
     }
 
