@@ -29,50 +29,32 @@ class YahooSQL {
         if ($upstreamCurl==false) {
             curl_close($this->ch);
         }
-        $this->json=(array)json_decode($jsonstring);
+        $this->json=json_decode($jsonstring, true);
         return $this->json;
     }
     public function get_results($jsonarray=null) {
         if (!$jsonarray){$jsonarray=$this->json;}
         $output=Array();
         if (isset($jsonarray['query'])) {
-            $query=(array)$jsonarray['query'];
-            $output['created']=strtotime($query['created']);
-            $results=(array)$query['results'];
+            $query=$jsonarray['query'];
+            $results=$query['results'];
             if (isset($results['yctCategories'])) {
-                $output['categories']=Array();
-                foreach ($results['yctCategories']->yctCategory as $category) {
-                    $category=(array)$category;
+                foreach ($results['yctCategories']['yctCategory'] as $category) {
+                    $category=$category;
                     if (isset($category['content'])) {
-                        $output['categories'][$category['content']]=(float)$category['score'];
+                        $output[$$category['content']]=(float)$category['score'];
                     }
                     else {
-                        if (isset($output['categories'][0])) {
-                            $output['categories'][$category[0]]=(float)$output['categories'][0];
-                            unset($output['categories'][0]);
+                        if (isset($output["tmp"])) {
+                            $output[$category]=(float)$output["tmp"];
+                            unset($output["tmp"]);
                         }
                         else {
-                            ARRAY_PUSH($output['categories'],$category[0]);
+                            $output["tmp"]=$category;
                         }
                     }
                     
                 }
-            }
-            else {
-                $output['categories']=null;
-            }
-            if (isset($results["entities"])) {
-                $output["entities"]=Array();
-                foreach ($results['entities']->entity as $entity) {
-                    $entity=(array)$entity;
-                    if (isset($entity['text'])) {
-                        $output['entities'][$entity['text']->content]=(float)$entity['score'];
-                    }
-                    if (isset($entity['wiki_url'])){$output['wiki']=$entity['wiki_url'];}
-                }
-            }
-            else {
-                $output["entities"]=null;
             }
         }
         return $output;
