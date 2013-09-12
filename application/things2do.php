@@ -36,38 +36,26 @@ class things2do {
         ));
     }
     public function suggestToUser() {
-        //$this->dostuff();
+        if (!$this->query) {
+            throw new Exception("No query entered");
+        }
+        //$this->interpretSearch();
+        //$this->getLocation();
         $output=$this->useOldAlgorithm();
-        /*
-        $output=Array();
-        // Example data <
-        array_push($output, Array(
-            "url" => "http://things2do.ws",
-            "title" => "Test Things 2 Do",
-            "score" => 1,
-            "type" => TYPE_CINEMA,
-            "postcode" => "POSTCODE",
-            "image" => "/assets/images/moviepostersample.png",
-            "data" => Array()
-        ));
-        // />
-        */
         echo json_encode($output);
         exit;
     }
-    protected function dostuff() {
+    private function interpretSearch() {
         // use yahoo content analysis
         $analysis=$this->YQL->do_contentanalysis_query($this->query, true);
-        // use location
-        $this->location=$this->GEOLocation->try_all_methods();
         // use alchemyapi
-        $this->alc->add_request("keywords", $this->query);
         $this->alc->add_request("category", $this->query);
-        $r=$this->alc->run_request();
-        $categories=AlcAPI::Categories2Type($r["category"]);
-        $keywords=$r["keywords"];
+        $alc_res=$this->alc->run_request();
+        $categories=AlcAPI::Categories2Type($alc_res["category"]);
         $this->searchTypes=$this->merge($analysis, $categories);
-        var_dump($this->searchTypes);
+    }
+    private function getLocation() {
+        $this->location=$this->GEOLocation->try_all_methods();
     }
     private function merge($analysis, $categories) {
         $new=Array();
