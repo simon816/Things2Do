@@ -68,5 +68,20 @@ class AlcAPI {
         }
         return $out_arr;
     }
+    public static function Categories2Type($categories) {
+        $out=Array();
+        // Switch case vs Array lookup, I chose Switch for readability although array is faster
+        foreach ($categories as $catname=>$score) {
+            switch($catname) {
+                case "arts_entertainment":
+                    $key=TYPE_CINEMA;
+                    break;
+                default:
+                    $key=TYPE_NULL;
+            }
+            $out[$key]=(float)$score;
+        }
+        return $out;
+    }
 }
 ?>

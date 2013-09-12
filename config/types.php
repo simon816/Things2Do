@@ -1,6 +1,8 @@
 <?php
 if (!defined("THINGS2DO")){die("Unauthorized access");}
 
+define("TYPE_NULL", 0);
+
 define("TYPE_BEACH", 1);
 define("TYPE_CINEMA", 2);
 define("TYPE_FOOD", 3);

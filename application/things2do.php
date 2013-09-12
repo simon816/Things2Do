@@ -57,15 +57,32 @@ class things2do {
     }
     protected function dostuff() {
         // use yahoo content analysis
-        $this->analysis=$this->YQL->do_contentanalysis_query($this->query);
+        $analysis=$this->YQL->do_contentanalysis_query($this->query, true);
         // use location
         $this->location=$this->GEOLocation->try_all_methods();
         // use alchemyapi
         $this->alc->add_request("keywords", $this->query);
         $this->alc->add_request("category", $this->query);
         $r=$this->alc->run_request();
-        $this->category=$r["category"];
-        $this->keywords=$r["keywords"];
+        $categories=AlcAPI::Categories2Type($r["category"]);
+        $keywords=$r["keywords"];
+        $this->searchTypes=$this->merge($analysis, $categories);
+        var_dump($this->searchTypes);
+    }
+    private function merge($analysis, $categories) {
+        $new=Array();
+        foreach($analysis as $id=>$score) {
+            if (isset($categories[$id])) {
+                if ($categories[$id] > $score) {
+                    $score = $categories[$id];
+                }
+                unset($categories[$id]);
+            }
+            $new[$id]=$score;
+        }
+        array_merge($new, $categories);
+        unset($new[TYPE_NULL]);
+        return $new;
     }
 
     private function useOldAlgorithm() {
