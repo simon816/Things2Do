@@ -86,6 +86,8 @@ class YahooSQL {
                 return TYPE_FOOD;
             case "Visual Arts":
                 return TYPE_ARTGALLERY;
+            case "Music":
+                return TYPE_RECORDSHOP;
             case "Animals":
             case "Pets":
                 return TYPE_ZOO;
@@ -96,11 +98,10 @@ class YahooSQL {
             case "American Football":
                 return TYPE_STADIUM;
             case "Shopping":
+            case "Technology & Electronics":
                 return TYPE_MALL;
             case "Society & Culture":
                 return TYPE_MUSEUM;
-            case "Music":
-                return TYPE_RECORDSHOP;
             case "Sports & Recreation":
                 return TYPE_BEACH;
             case "Arts & Entertainment":
