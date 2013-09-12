@@ -76,6 +76,12 @@ class AlcAPI {
                 case "arts_entertainment":
                     $key=TYPE_CINEMA;
                     break;
+                case "gaming":
+                    $key=TYPE_VIDEOGAMES;
+                    break;
+                case "sports":
+                    $key=TYPE_STADIUM;
+                    break;
                 default:
                     $key=TYPE_NULL;
             }
