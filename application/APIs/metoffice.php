@@ -19,6 +19,31 @@ class MetOfficeAPI {
         $data=$this->get_json("$locid", Array("res"=>$res));
         return $data;
     }
+    public function getNearestLocation($lat, $lon, $loclist=null) {
+        // $loclist can come from an external source e.g. mysql database table
+        if($loclist==null)$loclist=$this->getLocationList();
+        $closeLat = $loclist[0]['latitude'];
+        $closeLon = $loclist[0]['longitude'];
+        $closeDist = ($lat-$closeLat)*($lat-$closeLat)+($lon-$closeLon)*($lon-$closeLon);
+        $dLat = $closeLat - $lat;
+        $dLon = $closeLon - $lon;
+        if ($closeLat - $lat > 180) $dLon = 360 - ($closeLat - $lat);
+        $id = 0;
+        foreach ($loclist as $location) {
+            $tempx = $location['latitude'];
+            $tempy = $location['longitude'];
+            $dLat = $tempx - $lat;
+            $dLon = $tempy - $lon;
+            $tempDist=$dLat * $dLat + $dLon * $dLon;
+            if ($tempDist < $closeDist) {
+                $closeLat = $tempx;
+                $closeLon = $tempy;
+                $closeDist = $tempDist;
+                $id = $location['id'];
+            }
+        }
+        return $id;
+    }
     private function get_json($url, $data=Array()) {
         $data['key']=$this->apikey;
         $url=$this->url."$url?".http_build_query($data);

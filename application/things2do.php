@@ -4,22 +4,30 @@ if (!defined("THINGS2DO")){die("Unauthorized access");}
 include "$root/application/APIs/YahooSQL.php";
 include "$root/application/APIs/geolocation.php";
 include "$root/application/APIs/alcemyapi.php";
-include "$root/application/weather.php";
+include "$root/application/APIs/metoffice.php";
 
 class things2do {
     // The master class
+
     public $query;
-    public $analysis;
     public $location;
-    public $category;
+    public $searchTypes;
+
+    private $YQL;
+    private $GEOLocation;
+    private $alc;
+    private $met;
+
     private $root;
     private $curl;
+
     public function __construct($root) {
         $this->root=$root;
         $this->loadConfig();
         $this->YQL=new YahooSQL($this->curl);
         $this->GEOLocation=new LocationManager($this->curl);
         $this->alc=new AlcAPI($this->curl);
+        $this->met=new MetOfficeAPI($this->curl);
         $qname='q';
         $qtype=QUERY_MODE=="GET"?$_GET:$_POST;
         $this->query=isset($qtype[$qname])?$qtype[$qname]:"";
@@ -41,6 +49,7 @@ class things2do {
         }
         //$this->interpretSearch();
         //$this->getLocation();
+        //$this->getWeather();
         $output=$this->useOldAlgorithm();
         echo json_encode($output);
         exit;
@@ -56,6 +65,29 @@ class things2do {
     }
     private function getLocation() {
         $this->location=$this->GEOLocation->try_all_methods();
+    }
+    private function getWeather() {
+        $id=$this->met->getNearestLocation($this->location[0], $this->location[1]);
+        $weather=$this->met->getWeather($id);
+        $rep=$weather['SiteRep']['DV']['Location']['Period'][0]['Rep'][0];
+        switch ((int)$rep['W']) {
+            case 0:
+            case 1:
+                $type="sun";
+                break;
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                $type="cloud";
+                break;
+            default:
+                $type="rain";
+        }
+        $this->weather=Array("precipitation"=>(int)$rep['Pp'], "temperature"=>(int)$rep['F'], "type"=>$type);
     }
     private function merge($analysis, $categories) {
         $new=Array();
@@ -77,7 +109,7 @@ class things2do {
         // until a full rewrite is complete this will be the method
         include "$this->root/application/oldsearch.php";
         $this->location=Array(52.483056,-1.893611);
-        $this->weather=getWeather($this->curl, $this->root, $this->location);
+        $this->getWeather();
         return getResults($this, $this->root);
     }
 
