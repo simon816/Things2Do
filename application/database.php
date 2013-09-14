@@ -48,7 +48,19 @@ class MYSQL_DB {
         $keys=rtrim($keys, ", ").")";
         $values="(";
         foreach (array_values($data) as $val) {
-            $values.="'".mysqli_real_escape_string($this->db, $val)."', ";
+            if (gettype($val)=="NULL") {
+                $values.="NULL";
+            }
+            elseif (gettype($val)=="integer") {
+                $values.=(string)$val;
+            }
+            elseif (gettype($val)=="boolean") {
+                $values.=$val?"TRUE":"FALSE";
+            }
+            else {
+                $values.="'".mysqli_real_escape_string($this->db, $val)."'";
+            }
+            $values.=", ";
         }
         $values=rtrim($values, ", ").")";
         $this->add_query(Array("INSERT", "INTO",  "`$table`", $keys, "VALUES", $values));
