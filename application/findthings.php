@@ -48,7 +48,9 @@ class Activities {
           ->where('lat', '>=', $bounding_box[0])
           ->where('lat', '<=', $bounding_box[1])
           ->where('lon', '>=', $bounding_box[2])
-          ->where('lon', '<=', $bounding_box[3]);
+          ->where('lon', '<=', $bounding_box[3])
+          ->where('(type='.implode(" OR type=",array_keys($this->types)).')', '', '')
+          ->limit(24);
         return $this->db->_();
     }
     private function getNewPlaces($typelimit=false) {

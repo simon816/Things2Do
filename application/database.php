@@ -68,7 +68,9 @@ class MYSQL_DB {
         return $this;
     }
     public function where($key, $op, $val) {
+        if ($val) {
         $val="'".mysqli_real_escape_string($this->db, $val)."'";
+        }
         $this->add_to_chain("where", Array($key, $op, $val));
         return $this;
     }
