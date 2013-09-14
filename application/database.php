@@ -64,6 +64,10 @@ class MYSQL_DB {
         $this->add_to_chain("order by", Array($colname, $order));
         return $this;
     }
+    public function limit($from, $to=null) {
+        $this->add_to_chain("limit", array($from.($to!=null?", ".(int)$to:"")));
+        return $this;
+    }
     private function flush_query() {
         if ($this->executable) {
             $this->unclaimed[]=$this->_();
@@ -73,7 +77,8 @@ class MYSQL_DB {
         $this->query="";
         $this->chainarr= Array(
             "WHERE"=>Array("AND", Array()),
-            "ORDER BY"=>Array(", ", Array())
+            "ORDER BY"=>Array(", ", Array()),
+            "LIMIT"=>Array(", ",Array())
         );
     }
     private function add_query($arrdata) {
