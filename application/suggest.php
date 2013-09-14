@@ -34,7 +34,7 @@ class Suggest {
 
             $data = (object) array();
             // add events
-            $id = $place->id;	
+            $id = $place->id;
             $query = $this->db->select('*', 'events')->where('placeid','=',$id)->_();
             
             if(count($query) > 0) {

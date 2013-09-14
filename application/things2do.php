@@ -51,6 +51,21 @@ class things2do {
         if (!$this->query) {
             throw new Exception("No query entered");
         }
+        if ($this->query=="@test") {
+            echo json_encode(array(
+                Array(
+                "url" => "http://things2do.ws",
+                "title" => "Test Things 2 Do",
+                "score" => 1,
+                "distance"=>0,
+                "type" => TYPE_CINEMA,
+                "postcode" => "POSTCODE",
+                "images" => "/assets/images/moviepostersample.png",
+                "data" => Array()
+                )
+            ));
+        exit;
+        }
         //$this->interpretSearch();
         //$this->getLocation();
         //$this->getWeather();
