@@ -5,6 +5,7 @@ include "$root/application/APIs/YahooSQL.php";
 include "$root/application/APIs/geolocation.php";
 include "$root/application/APIs/alcemyapi.php";
 include "$root/application/APIs/metoffice.php";
+include "$root/application/database.php";
 
 class things2do {
     // The master class
@@ -20,6 +21,7 @@ class things2do {
 
     private $root;
     private $curl;
+    private $db;
 
     public function __construct($root) {
         $this->root=$root;
@@ -31,6 +33,7 @@ class things2do {
         $qname='q';
         $qtype=QUERY_MODE=="GET"?$_GET:$_POST;
         $this->query=isset($qtype[$qname])?$qtype[$qname]:"";
+        $this->db=new MYSQL_DB();
     }
     private function loadConfig() {
         include "$this->root/config/main.php";
@@ -40,7 +43,8 @@ class things2do {
             CURLOPT_RETURNTRANSFER=>true,
             CURLOPT_FORBID_REUSE=>false,
             CURLOPT_FRESH_CONNECT=>false,
-            CURLOPT_CONNECTTIMEOUT=>2
+            CURLOPT_CONNECTTIMEOUT=>2,
+            CURLOPT_SSL_VERIFYPEER=>false
         ));
     }
     public function suggestToUser() {
@@ -50,6 +54,7 @@ class things2do {
         //$this->interpretSearch();
         //$this->getLocation();
         //$this->getWeather();
+        //$this->getThings();
         $output=$this->useOldAlgorithm();
         echo json_encode($output);
         exit;
@@ -88,6 +93,13 @@ class things2do {
                 $type="rain";
         }
         $this->weather=Array("precipitation"=>(int)$rep['Pp'], "temperature"=>(int)$rep['F'], "type"=>$type);
+    }
+    private function getThings() {
+        include "$this->root/application/findthings.php";
+        $things=new Activities($this->db, $this->root, $this->curl);
+        $things->setLocation($this->location);
+        $things->setTypes($this->searchTypes);
+        $this->suggestions=$things->getSuggestions();
     }
     private function merge($analysis, $categories) {
         $new=Array();

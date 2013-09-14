@@ -1,7 +1,8 @@
 <?php
 function getBoundingBox($lat_degrees,$lon_degrees,$distance_in_km) {
     // STOLEN from  http://stackoverflow.com/questions/2628039/php-library-calculate-a-bounding-box-for-a-given-lat-lng-location
-    $radius = 6371; // of earth in miles
+    // Modified from miles to kilometres
+    $radius = 6378.1; // of earth in km
 
     // bearings - FIX   
     $due_north = deg2rad(0);
