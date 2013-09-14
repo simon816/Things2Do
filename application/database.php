@@ -117,6 +117,7 @@ class MYSQL_DB {
             }
         }
         $result=mysqli_query($this->db, $this->query);
+        $this->executable=false;
         if ($result != false) {
             if ($result === true) {
                 return true;
@@ -131,7 +132,6 @@ class MYSQL_DB {
         else {
             throw new Exception(mysqli_error($this->db));
         }
-        $this->executable=false;
         $this->flush_query();
         return $o;
     }
