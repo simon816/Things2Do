@@ -40,29 +40,36 @@ class MYSQL_DB {
         return $this;
     }
     public function insert($table, $data) {
+        return $this->insert_batch($table, Array($data));
+    }
+    public function insert_batch($table, $data) {
         $this->flush_query();
         $keys="(";
-        foreach (array_keys($data) as $key) {
+        foreach (array_keys($data[0]) as $key) {
             $keys.="`$key`, ";
         }
         $keys=rtrim($keys, ", ").")";
-        $values="(";
-        foreach (array_values($data) as $val) {
-            if (gettype($val)=="NULL") {
-                $values.="NULL";
+        $values="";
+        foreach ($data as $dat) {
+            $values.="(";
+            foreach (array_values($dat) as $val) {
+                if (gettype($val)=="NULL") {
+                    $values.="NULL";
+                }
+                elseif (gettype($val)=="integer") {
+                    $values.=(string)$val;
+                }
+                elseif (gettype($val)=="boolean") {
+                    $values.=$val?"TRUE":"FALSE";
+                }
+                else {
+                    $values.="'".mysqli_real_escape_string($this->db, $val)."'";
+                }
+                $values.=", ";
             }
-            elseif (gettype($val)=="integer") {
-                $values.=(string)$val;
-            }
-            elseif (gettype($val)=="boolean") {
-                $values.=$val?"TRUE":"FALSE";
-            }
-            else {
-                $values.="'".mysqli_real_escape_string($this->db, $val)."'";
-            }
-            $values.=", ";
+            $values=rtrim($values, ", ")."),";
         }
-        $values=rtrim($values, ", ").")";
+        $values=rtrim($values, ",");
         $this->add_query(Array("INSERT", "INTO",  "`$table`", $keys, "VALUES", $values));
         $this->executable=true;
         return $this;

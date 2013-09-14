@@ -87,7 +87,12 @@ class things2do {
         $this->location=$this->GEOLocation->try_all_methods();
     }
     private function getWeather() {
-        $id=$this->met->getNearestLocation($this->location[0], $this->location[1]);
+        $list=$this->db->select("*", "metLocList")->_();
+        if (!$list) {
+            $list=$this->met->getLocationList();
+            $this->db->insert_batch("metLocList", $list)->_();
+        }
+        $id=$this->met->getNearestLocation($this->location[0], $this->location[1], $list);
         $weather=$this->met->getWeather($id);
         $rep=$weather['SiteRep']['DV']['Location']['Period'][0]['Rep'][0];
         switch ((int)$rep['W']) {
