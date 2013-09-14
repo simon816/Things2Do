@@ -44,7 +44,6 @@ class FourSquareAPI {
                 throw new Exception("[".$meta["code"]."] FourSquare API Error: (".$meta["errorType"].") ".$meta["errorDetail"]);
             }
         }
-        //echo "GET ".$url."<br>";
         return $json['response'][$returnobj];
     }
     private function search($categories=array(), $query="") {
@@ -64,11 +63,19 @@ class FourSquareAPI {
     public function setLocation($loc) {
         $this->location=$loc;
     }
-    public function get($key) {
+    public function get($key, $withimages=false) {
         if (!isset($this->categories[$key])) {
-            return $this->search(array(), $key);
+            $venues=$this->search(array(), $key);
         }
-        return $this->search(array($this->categories[$key]));
+        else {
+            $venues=$this->search(array($this->categories[$key]));
+        }
+        if ($withimages==true) {
+            foreach ($venues as &$venue) {
+                $venue['images']=$this->getImages($venue["id"]);
+            }
+        }
+        return $venues;
     }
     public function getMulti($keys) {
         return $this->search(array_map(function($a){return $this->categories[$a];}, $keys));
@@ -90,8 +97,21 @@ class FourSquareAPI {
         }
         $out=Array();
         walk($c, $out);
-        var_dump($out);
         return $out;
+    }
+    public function getImages($placeid, $limit=100) {
+        $photos=$this->get_json("$placeid/photos", array("group"=>"venue","limit"=>$limit), "photos");
+        if ($photos["count"]==0) {
+            return null;
+        }
+        $images=array();
+        foreach($photos["items"] as $photo) {
+            $url=$photo["prefix"];
+            $url.="width300";
+            $url.=$photo["suffix"];
+            $images[]=$url;
+        }
+        return $images;
     }
 }
 ?>
