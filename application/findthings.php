@@ -113,6 +113,9 @@ class Activities {
                 $place['images']=null;
             }
             $place['type'] = $TYPE;
+            if (!isset($placedata['canonicalUrl'])) {
+                $placedata['canonicalUrl']="https://foursquare.com/v/".$placedata['id'];
+            }
             $place['url'] = $placedata['canonicalUrl'];
             $place['lat'] = $placedata['location']['lat'];
             $place['lon'] = $placedata['location']['lng'];
