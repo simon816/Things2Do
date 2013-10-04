@@ -82,6 +82,17 @@ class things2do {
         $alc_res=$this->alc->run_request();
         $categories=AlcAPI::Categories2Type($alc_res["category"]);
         $this->searchTypes=$this->merge($analysis, $categories);
+        if (!$this->searchTypes) {
+            // Unable to detect phrase
+            $res=$this->db->select("type, score", "keywords")->where("word", "in ('".str_replace(" ", "','", $this->query)."')", "")->_();
+            foreach ($res as $match) {
+                $this->searchTypes[(int)$match['type']]=(float)$match['score'];
+            }
+        }
+        if (!$this->searchTypes) {
+            // Cannot work out what category the query is
+            $this->searchTypes=$this->getTypesBasedOnTime(2);
+        }
     }
     private function getLocation() {
         $this->location=$this->GEOLocation->try_all_methods();
@@ -135,6 +146,31 @@ class things2do {
         array_merge($new, $categories);
         unset($new[TYPE_NULL]);
         return $new;
+    }
+    private function getTypesBasedOnTime($maxtypes=1) {
+        $feelings=$this->db->select("*", "timefeel")->_();
+        $hour=(float)date("G", time()) + ((float)date("i", time()))/60;
+        if ($hour>=3&&$hour<=9)$name="mornfeel";
+        elseif ($hour>=9&&$hour<=15)$name="dayfeel";
+        elseif ($hour>=15&&$hour<=20)$name="evefeel";
+        else $name="nightfeel";
+        $arr=Array();
+        foreach($feelings as $timefeel) {
+            $arr[]=array($timefeel['type']=>(float)$timefeel[$name]);
+        }
+        usort($arr, function($a,$b) {
+            if (array_values($a)[0] < array_values($b)[0]) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        $r=Array();
+        foreach (array_splice($arr, 0, $maxtypes) as $kv) {
+            $id=array_keys($kv)[0];
+            $r[$id]=$kv[$id];
+        }
+        return $r;
     }
 
     private function useOldAlgorithm() {
